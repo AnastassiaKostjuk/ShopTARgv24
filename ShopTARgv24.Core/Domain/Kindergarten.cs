@@ -1,5 +1,6 @@
 ﻿namespace ShopTARgv24.Core.Domain
 {
+
     public class Kindergarten
     {
         public Guid Id { get; set; }
