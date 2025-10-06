@@ -34,7 +34,11 @@ namespace ShopTARgv24.ApplicationServices.Services
             domain.CreatedAt = DateTime.Now;
             domain.ModifiedAt = DateTime.Now;
 
-           _fileServices.UploadFilesToDatabase(dto, domain);
+            //peaks kontrollima, kas on faile voi ei ole
+            if (dto.Files !=null)
+            {
+                _fileServices.UploadFilesToDatabase(dto, domain);
+            }
 
 
             await _context.RealEstates.AddAsync(domain);
