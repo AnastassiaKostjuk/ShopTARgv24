@@ -1,0 +1,54 @@
+﻿@model ShopTARgv24.Models.Kindergarten.KindergartenCreateUpdateViewModel
+
+@if (Model.Id.HasValue)
+{
+    <h1>Update</h1>
+}
+else
+{
+    <h1>Create</h1>
+}
+
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="CreatedAt" type="hidden" />
+        <input asp-for="UpdatedAt" type="hidden" />
+
+        <div class="form-group row">
+            <label asp-for="Group" class="col-sm-2 col-form-label">Group name</label>
+            <div class="col-sm-10">
+                <input asp-for="Group" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="ChildrenTotal" class="col-sm-2 col-form-label">Children count</label>
+            <div class="col-sm-10">
+                <input asp-for="ChildrenTotal" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="KindergartenName" class="col-sm-2 col-form-label">Kindergarten name</label>
+            <div class="col-sm-10">
+                <input asp-for="KindergartenName" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label asp-for="Teacher" class="col-sm-2 col-form-label">Teacher name</label>
+            <div class="col-sm-10">
+                <input asp-for="Teacher" class="form-control" />
+            </div>
+        </div>
+
+        @if (Model.Id.HasValue)
+        {
+            <input asp-action="update" asp-controller="kindergartens" type="submit" class="btn btn-success m-2" value="Update" />
+        }
+        else
+        {
+            <input asp-action="create" asp-controller="kindergartens" type="submit" class="btn btn-success m-2" value="Create" />
+        }
+        <a asp-action="Index" asp-controller="kindergartens" class="btn btn-secondary m-2">Back</a>
+    </form>
+</div>
