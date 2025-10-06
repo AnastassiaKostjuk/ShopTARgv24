@@ -25,9 +25,9 @@ namespace ShopTARgv24.Controllers
             var result = _context.Kindergartens
                 .Select(x => new KindergartenIndexViewModel
                 {
-                    Id = (Guid)x.Id,
+                    Id = x.Id,
                     Group = x.Group,
-                    ChildrenTotal = (int)x.ChildrenTotal,
+                    ChildrenTotal = x.ChildrenTotal,
                     Teacher = x.Teacher,
                     KindergartenName = x.KindergartenName
                 });
