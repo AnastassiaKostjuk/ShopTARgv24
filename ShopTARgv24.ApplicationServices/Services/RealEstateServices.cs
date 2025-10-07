@@ -26,7 +26,7 @@ namespace ShopTARgv24.ApplicationServices.Services
         {
             RealEstate domain = new RealEstate();
 
-            domain.Id = dto.Id;
+            domain.Id = Guid.NewGuid();
             domain.Area = dto.Area;
             domain.Location = dto.Location;
             domain.RoomNumber = dto.RoomNumber;
@@ -34,10 +34,13 @@ namespace ShopTARgv24.ApplicationServices.Services
             domain.CreatedAt = DateTime.Now;
             domain.ModifiedAt = DateTime.Now;
 
-           _fileServices.UploadFilesToDatabase(dto, domain);
+            //peaks kontrollima, kas on faile v]i ei ole
+            if (dto.Files != null)
+            {
+                _fileServices.UploadFilesToDatabase(dto, domain);
+            }
 
-
-            await _context.RealEstates.AddAsync(domain);
+            await _context.RealEstate.AddAsync(domain);
             await _context.SaveChangesAsync();
 
             return domain;
@@ -55,7 +58,8 @@ namespace ShopTARgv24.ApplicationServices.Services
             domain.CreatedAt = dto.CreatedAt;
             domain.ModifiedAt = DateTime.Now;
 
-            _context.RealEstates.Update(domain);
+
+            _context.RealEstate.Update(domain);
             await _context.SaveChangesAsync();
 
             return domain;
@@ -63,7 +67,7 @@ namespace ShopTARgv24.ApplicationServices.Services
 
         public async Task<RealEstate> DetailAsync(Guid id)
         {
-            var result = await _context.RealEstates
+            var result = await _context.RealEstate
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
@@ -71,10 +75,10 @@ namespace ShopTARgv24.ApplicationServices.Services
 
         public async Task<RealEstate> Delete(Guid id)
         {
-            var result = await _context.RealEstates
+            var result = await _context.RealEstate
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            _context.RealEstates.Remove(result);
+            _context.RealEstate.Remove(result);
             await _context.SaveChangesAsync();
 
             return result;

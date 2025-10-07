@@ -1,5 +1,5 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopTARgv24.ApplicationServices.Services;
 using ShopTARgv24.Core.Dto;
 using ShopTARgv24.Core.ServiceInterface;
@@ -26,7 +26,7 @@ namespace ShopTARgv24.Controllers
 
         public IActionResult Index()
         {
-            var result = _context.RealEstates
+            var result = _context.RealEstate
                 .Select(x => new RealEstateIndexViewModel
                 {
                     Id = x.Id,
@@ -65,8 +65,7 @@ namespace ShopTARgv24.Controllers
                         Id = x.Id,
                         ImageData = x.ImageData,
                         ImageTitle = x.ImageTitle,
-                        RealEstateId = x.RealEstateId
-
+                        RealEstateId = x.RealEstateId,
                     }).ToArray()
             };
 
@@ -175,6 +174,17 @@ namespace ShopTARgv24.Controllers
                 return NotFound();
             }
 
+            var photos = await _context.FileToDatabase
+                .Where(x => x.RealEstateId == id)
+                .Select(y => new RealEstateImageViewModel
+                {
+                    RealEstateId = y.Id,
+                    Id = y.Id,
+                    ImageData = y.ImageData,
+                    ImageTitle = y.ImageTitle,
+                    Image = string.Format("data:image/gif;base64, {0}", Convert.ToBase64String(y.ImageData))
+                }).ToArrayAsync();
+
             var vm = new RealEstateDetailsViewModel();
 
             vm.Id = realEstate.Id;
@@ -184,6 +194,7 @@ namespace ShopTARgv24.Controllers
             vm.Location = realEstate.Location;
             vm.CreatedAt = realEstate.CreatedAt;
             vm.ModifiedAt = realEstate.ModifiedAt;
+            vm.Image.AddRange(photos);
 
             return View(vm);
         }
