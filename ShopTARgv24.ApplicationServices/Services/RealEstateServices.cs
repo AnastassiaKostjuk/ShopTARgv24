@@ -58,7 +58,6 @@ namespace ShopTARgv24.ApplicationServices.Services
             domain.CreatedAt = dto.CreatedAt;
             domain.ModifiedAt = DateTime.Now;
 
-
             _context.RealEstate.Update(domain);
             await _context.SaveChangesAsync();
 
