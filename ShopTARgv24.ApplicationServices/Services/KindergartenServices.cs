@@ -6,7 +6,7 @@ using ShopTARgv24.Data;
 
 namespace ShopTARgv24.ApplicationServices.Services
 {
-    internal class KindergartenServices : IKindergartenServices
+    public class KindergartenServices : IKindergartenServices
     {
         private readonly ShopTARgv24Context _context;
 

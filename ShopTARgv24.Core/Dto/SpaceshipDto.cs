@@ -14,7 +14,7 @@ namespace ShopTARgv24.Core.Dto
         public int? InnerVolume { get; set; }
 
         //Tuleb teha muutuja Files ja see peab olema listis
-        public List<IFormFile> Files { get; set; }
+        public List<IFormFile> Files { get; set; } = new List<IFormFile>();
 
         public IEnumerable<FileToApiDto> FileToApiDtos { get; set; }
             = new List<FileToApiDto>();
