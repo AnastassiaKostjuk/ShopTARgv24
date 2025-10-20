@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShopTARgv24.ApplicationServices.Services;
 using ShopTARgv24.Core.ServiceInterface;
 using ShopTARgv24.Data;
@@ -17,6 +17,7 @@ namespace ShopTARgv24
             builder.Services.AddScoped<ISpaceshipsServices, SpaceshipsServices>();
             builder.Services.AddScoped<IFileServices, FileServices>();
             builder.Services.AddScoped<IRealEstateServices, RealEstateServices>();
+            builder.Services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
 
 
             builder.Services.AddDbContext<ShopTARgv24Context>(options =>

@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace ShopTARgv24.ApplicationServices.Services
 {
-    internal class WeatherForecastServices : IWeatherForecastServices
+    public class WeatherForecastServices : IWeatherForecastServices
     {
         public async Task<AccuLocationWeatherResultDto> AccuWeatherResult(AccuLocationWeatherResultDto dto)
         {
@@ -20,13 +20,19 @@ namespace ShopTARgv24.ApplicationServices.Services
                 if(response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();
-                    var weatherData = JsonSerializer.Deserialize<AccuLocationWeatherResultDto>(jsonResponse);
-                    return weatherData;
+                    var weatherData = JsonSerializer.Deserialize<AccuLocationRootDto>(jsonResponse);
+                    
+
+                    dto.EndDate = weatherData.Headline.EndDate;
+                    dto.Text = weatherData.Headline.Text;
+                    dto.TempMetricValueUnit = weatherData.DailyForecasts[0].Temperature.Maximum.Value;
+                    
                 }
                 else
                 {
                     throw new Exception("Error retrieving weather data from AccuWeather API");
                 }
+                return dto;
             }
 
         }
