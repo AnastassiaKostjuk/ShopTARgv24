@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Net;
 using ShopTARgv24.Core.ServiceInterface;
 
+
 namespace ShopTARgv24.ApplicationServices.Services
 {
     public class WeatherForecastServices : IWeatherForecastServices
